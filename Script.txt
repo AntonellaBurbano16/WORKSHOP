@@ -1,0 +1,120 @@
+SCRIP SQL
+
+----------------------- CREACIÓN DE TABLAS --------------------------------
+
+CREATE TABLE "usuarios" (
+  "id_usuario" INT(10) NOT NULL,
+  "nombre_usuario" VARCHAR(45) NOT NULL,
+  "email" VARCHAR(100) NOT NULL,
+  PRIMARY KEY ("id_usuario")
+)
+
+CREATE TABLE "acciones" (
+  "id_accion" INT(10) NOT NULL,
+  "nombre_accion" VARCHAR(45) NOT NULL,
+  PRIMARY KEY ("id_accion")
+)
+
+CREATE TABLE "contenido" (
+  "id_contenido" INT(10) NOT NULL,
+  "id_usuario" INT(10) NOT NULL,
+  "id_accion" INT(10) NOT NULL,
+  "fecha" DATE NOT NULL,
+  "contenido" LONGTEXT NOT NULL,
+  PRIMARY KEY ("id_contenido"),
+  FOREIGN KEY ("id_usuario") REFERENCES "Usuarios"("id_usuario"),   -----> Relacion de llave foranea
+  FOREIGN KEY ("id_accion") REFERENCES "Acciones"("id_accion")
+)
+
+--------------------------- AGREGAR COLUMNA ----------------------------
+
+ALTER TABLE Usuarios
+ADD fecha_registro DATE;
+
+-------------------------- ELIMINAR COLUMNA ----------------------------
+
+ALTER TABLE Usuarios
+DROP COLUMN fecha_registro;
+
+----------------------- RENOMBRAR COLUMNA ---------------------------
+
+ALTER TABLE nombre_de_la_tabla
+RENAME COLUMN nombre_viejo TO nombre_nuevo;
+
+--------------------- INSERTAR DATOS A TABLA ------------------------------
+
+INSERT INTO "Usuarios" VALUES
+(1,"juani69","juanitorres@gmail.com"),
+(2,"mica_garcia","mica04@gmail.com"),
+(3, "luisito33", "luis_lopez@gmail.com"),
+(4, "sofia_martinez", "sofia_mtz23@gmail.com")
+
+INSERT INTO "Acciones" VALUES
+(1,"posteo"),
+(2,"reel")
+(3, "Foto"),
+(4, "Comentario")
+
+INSERT INTO "contenido" VALUES 
+(1,2,2,"26/04/2022","video_gatito.mp4"),
+(2,1,1,"05/06/2022","perritomeme.png"),
+(3, 3, 3, "10/07/2022", "gato_divertido.mp4"),
+(4, 4, 4, "15/08/2022", "paisaje_naturaleza.jpg"),
+(5, 3, 3, "10/07/2024", "selfie.mp4")
+
+----------------------------- SELECT --------------------------------
+
+SELECT nombre_usuario, email
+FROM Usuarios WHERE id_usuario 
+BETWEEN 1 AND 3
+
+------------------------- JOIN -------------------------------
+
+SELECT Usuarios.nombre_usuario, Acciones.nombre_accion, id_contenido
+FROM Contenido JOIN Usuarios ON Contenido.id_usuario = Usuarios.id_usuario
+JOIN Acciones ON Contenido.id_accion = Acciones.id_accion
+
+---------------------------------------------------------
+nombre_usuario |    nombre_accion   |	id_contenido
+---------------------------------------------------------
+mica_garcia    |   reel	            |    1
+juani69	       |   posteo	    |    2
+luisito33      |   Foto	            |    3
+sofia_martinez |   Comentario	    |    4 
+luisito33      |   Foto	            |    5
+---------------------------------------------------------
+
+SELECT Usuarios.nombre_usuario, Acciones.nombre_accion, contenido
+FROM Contenido JOIN Usuarios ON Contenido.id_usuario = Usuarios.id_usuario
+JOIN Acciones ON Contenido.id_accion = Acciones.id_accion
+
+-------------------------------------------------------------
+nombre_usuario |   nombre_accion    |    contenido
+-------------------------------------------------------------
+mica_garcia    |   reel	            |  video_gatito.mp4
+juani69	       |   posteo	    |  perritomeme.png
+luisito33      |   Foto	            |  gato_divertido.mp4
+sofia_martinez |   Comentario	    |  paisaje_naturaleza.jpg
+luisito33      |   Foto	            |  selfie.mp4
+---------------------------------------------------------------
+
+SELECT Usuarios.nombre_usuario, Acciones.nombre_accion, contenido, fecha
+FROM Contenido JOIN Usuarios ON Contenido.id_usuario = Usuarios.id_usuario
+JOIN Acciones ON Contenido.id_accion = Acciones.id_accion
+
+----------------------------------------------------------------------------
+nombre_usuario | nombre_accion |	contenido	      |   fecha
+----------------------------------------------------------------------------
+mica_garcia    |  reel	       |   video_gatito.mp4	      |  26/04/2022
+juani69	       |  posteo       |   perritomeme.png	      |  05/06/2022
+luisito33      |  Foto	       |   gato_divertido.mp4	      |  10/07/2022
+sofia_martinez |  Comentario   |   paisaje_naturaleza.jpg     |  15/08/2022
+luisito33      |  Foto	       |   selfie.mp4	              |  10/07/2024
+-----------------------------------------------------------------------------
+
+
+SELECT Usuarios.nombre_usuario, Acciones.nombre_accion, contenido, fecha
+FROM Contenido, Usuarios, Acciones
+WHERE contenido.id_usuario = usuarios.id_usuario
+AND Acciones.id_accion = contenido.id_accion
+
