@@ -1,2 +1,2 @@
 # WORKSHOP
-Repositorio de ejemplo para el WorkShop
+Este repositorio ha sido creado con fines académicos como parte del curso de Testing & Automatización de MindHub. Su objetivo es servir de espacio para realizar pruebas y prácticas, enfocadas en el aprendizaje y dominio de herramientas como Git y GitHub. A través de este repositorio, se llevarán a cabo ejercicios para la gestión del control de versiones, permitiendo reforzar los conceptos aprendidos en el curso.
