@@ -68,6 +68,10 @@ SELECT nombre_usuario, email
 FROM Usuarios WHERE id_usuario 
 BETWEEN 1 AND 3
 
+SELECR *
+FROM Usuarios 
+WHERE nombre_usuario LIKE sofia%
+
 ------------------------- JOIN -------------------------------
 
 SELECT Usuarios.nombre_usuario, Acciones.nombre_accion, id_contenido
